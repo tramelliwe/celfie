@@ -75,6 +75,7 @@ if __name__ == "__main__":
     tissues = int(sys.argv[4])  # total number of tissues to calc tims for
     depth_filter = int(sys.argv[5])  # depth filter
     nan_filter = int(sys.argv[6])  # number of nans to allow in TIM calc
+    min_depth_filter = int(sys.argv[7]) # minimum depth to allow for TIM
 
     # list of heaps needed to count max distances for each tissue
     distance_heaps = [[] for i in range(tissues)]
@@ -87,7 +88,8 @@ if __name__ == "__main__":
             meth = np.asarray(line[3::2], dtype="float")
             depth = np.asarray(line[4::2], dtype="float")
 
-            median_depth = bn.nanmedian(depth)
+            median_depth = bn.nanmedian(depth) #Median of array elements along given axis ignoring NaNs.
+            min_depth = min(depth) #Minimum depth
 
             np.seterr(
                 divide="ignore", invalid="ignore"
@@ -98,7 +100,9 @@ if __name__ == "__main__":
 
             if (
                 median_depth >= depth_filter and nan_count < nan_filter
+                and min_depth >= min_depth_filter
             ):  # data must pass basic quality to be a tim
+
                 dist, median = distance(percents)
 
                 for i, col_dist in enumerate(dist):
