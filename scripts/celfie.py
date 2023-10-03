@@ -163,7 +163,7 @@ def em(x, x_depths, y, y_depths, num_iterations, convergence_criteria):
     convergence_criteria: difference between alpha + gamma before stopping
 
     """
-
+    
     # randomly intialize alpha for each iteration
     alpha = np.random.uniform(size=(x.shape[0], y.shape[0]))
     alpha /= np.sum(alpha, axis=1)[:, np.newaxis]  # make alpha sum to 1
@@ -177,7 +177,6 @@ def em(x, x_depths, y, y_depths, num_iterations, convergence_criteria):
 
     # perform EM for a given number of iterations
     for i in range(num_iterations):
-
         p0, p1 = expectation(gamma, alpha)
         a, g = maximization(p0, p1, x, x_depths, y, y_depths)
 
@@ -193,7 +192,7 @@ def em(x, x_depths, y, y_depths, num_iterations, convergence_criteria):
         else:  # set current evaluation of alpha and gamma
             alpha = a
             gamma = g
-
+            
     ll = log_likelihood(
         p0, p1, x_depths, x, y_depths, y, gamma, alpha
     )  # print ll for random restarts
@@ -243,7 +242,8 @@ def parse_header_names(header):
     parsed_header = []
 
     for i in range(0, len(header), 2):
-        parsed_header.append(header[i].split("_")[0])
+        parts = header[i].split("_")
+        parsed_header.append("_".join(parts[:-1]))
 
     return parsed_header
 
