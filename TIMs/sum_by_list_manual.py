@@ -33,7 +33,7 @@ def get_region_dict(file, tissues):
     return regions_dict
 
 
-regions = get_region_dict("temp/top_500_sites_windowed_sorted.bed", 36)
+
 
 def get_methylation_counts(file, regions_dict):
     """
@@ -68,7 +68,7 @@ def write_bed_file(output_file, regions_dict):
     write bed file of summed counts for all tissues
     """
     with open(output_file, "w") as output:
-        bed_file = csv.writer(output, delimiter="\t")
+        bed_file = csv.writer(output, delimiter="\t",lineterminator="\n")
         
         for chrom in regions_dict:
             for region in regions_dict[chrom]:
@@ -92,13 +92,12 @@ def write_bed_file(output_file, regions_dict):
 
 
 
-list_file = sys.argv[1]
-tissue_cpg_file = "temp/UZA_10_D1_verwerked.bed"
-output_file_name = sys.argv[3]
-tissues = int(sys.argv[4])
+list_file = "test_celfie/top_500_sites_windowed_sorted.txt"
+tissue_cpg_file = "UZA_10_D1_verwerked_filtered.bed"
+output_file_name = "summed_UZA_10_D1.bed"
+tissues = 1
 
-
-get_methylation_counts(
-    tissue_cpg_file, regions
-)  # get methylation read counts of Cpgs within region
+regions = get_region_dict(list_file, 1)
+get_methylation_counts(tissue_cpg_file, regions)  # get methylation read counts of Cpgs within region
+write_bed_file(output_file_name, regions)
 write_bed_file(output_file_name, regions)  # write output
