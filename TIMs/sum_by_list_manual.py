@@ -33,20 +33,21 @@ def get_region_dict(file, tissues):
     return regions_dict
 
 
-regions = get_region_dict("temp/top_500_sites_windowed_sorted.bed", 1)
+regions = get_region_dict("temp/top_500_sites_windowed_sorted.bed", 36)
 
 def get_methylation_counts(file, regions_dict):
     """
     add together the methylation counts for all CpGs in the selected region
     """
-
+    c=0
     # file of CpGs
     with open(file, "r") as input_file:
         cpg_file = csv.reader(input_file, delimiter="\t")
         
         # get methylation read counts for each position
         for line in cpg_file:
-            print(line)
+            c+=1
+            print(c)
             chrom, start, end = line[0], line[1], line[2]
             meth = np.array(line[3::2], dtype=np.float64)
             depth = np.array(line[4::2], dtype=np.float64)
@@ -68,7 +69,7 @@ def write_bed_file(output_file, regions_dict):
     """
     with open(output_file, "w") as output:
         bed_file = csv.writer(output, delimiter="\t")
-
+        
         for chrom in regions_dict:
             for region in regions_dict[chrom]:
                 values = []
