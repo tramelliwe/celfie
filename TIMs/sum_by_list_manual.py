@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import sys
 import collections
+import os
 
 
 def get_region_dict(file, tissues):
@@ -92,12 +93,19 @@ def write_bed_file(output_file, regions_dict):
 
 
 
-list_file = "test_celfie/top_500_sites_windowed_sorted.txt"
-tissue_cpg_file = "UZA_10_D1_verwerked_filtered.bed"
-output_file_name = "summed_UZA_10_D1.bed"
+list_file = "temp/celfie_original/top_500_markers_merged.bed"
 tissues = 1
 
-regions = get_region_dict(list_file, 1)
-get_methylation_counts(tissue_cpg_file, regions)  # get methylation read counts of Cpgs within region
-write_bed_file(output_file_name, regions)
-write_bed_file(output_file_name, regions)  # write output
+folder = ("clean_dorado/test4/bed/")
+output_folder = os.path.join(folder,"summed_over_marker/")
+files = os.listdir(folder)
+file_paths = [os.path.join(folder, file) for file in files if file.endswith("bed")]
+
+for file_path in file_paths:
+    tissue_cpg_file = file_path
+    sample = os.path.basename(file_path)
+    output_file_name = output_folder + sample
+    regions = get_region_dict(list_file, tissues)
+    get_methylation_counts(tissue_cpg_file, regions)  # get methylation read counts of Cpgs within region
+    write_bed_file(output_file_name, regions)
+
