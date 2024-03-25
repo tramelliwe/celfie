@@ -12,8 +12,8 @@
 
 ############### define parameters here ################
 
-input_file=sample_input.txt
-output_file=sample_tims.txt
+input_file=sample_input.txt #=all tissues methylation reads, no header
+output_file=sample_tims.txt #=all markers, with header
 summed_file=sample_tims_summed.txt
 sum_window_size=500
 number_tims=100
@@ -25,7 +25,7 @@ na_filter=2
 
 #### run tim caller
 ### python tim.py <input file> <output file> <# of tim/tissue> <# of tissues> <depth filter> <max # of missing>
-python tim.py $input_file $output_file $number_tims $number_tissues $depth_filter $na_filter
+#python tim.py $input_file $output_file $number_tims $number_tissues $depth_filter $na_filter
 
 
 #### sum reference data into window
