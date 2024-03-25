@@ -96,7 +96,7 @@ def write_bed_file(output_file, regions_dict):
 list_file = "temp/celfie_original/top_500_markers_merged.bed"
 tissues = 1
 
-folder = ("clean_dorado/test4/bed/")
+folder = ("C:/Users/cwillemart/Downloads/bed/bed/")
 output_folder = os.path.join(folder,"summed_over_marker/")
 files = os.listdir(folder)
 file_paths = [os.path.join(folder, file) for file in files if file.endswith("bed")]
