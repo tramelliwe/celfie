@@ -49,6 +49,7 @@ def get_methylation_counts(file, regions_dict):
         for line in cpg_file:
             c+=1
             print(c)
+            line = [element.replace(',', '.') for element in line]
             chrom, start, end = line[0], line[1], line[2]
             meth = np.array(line[3::2], dtype=np.float64)
             depth = np.array(line[4::2], dtype=np.float64)
@@ -93,8 +94,14 @@ def write_bed_file(output_file, regions_dict):
 
 
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 list_file = "temp/celfie_original/top_500_markers_merged.bed"
+=======
+list_file = "test_celfie/markers_500_windowed.txt"
+tissue_cpg_file = "test_celfie/ENCFF318IKY_verwerked_filtered.bed"
+output_file_name = "test_celfie/ENCFF318IKY_windowed.bed"
+>>>>>>> 29f44f7dc31ee232436b9a45b9bf945725c0d719
 tissues = 1
 
 folder = ("C:/Users/cwillemart/Downloads/bed/bed/")
