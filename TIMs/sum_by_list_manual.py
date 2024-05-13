@@ -93,6 +93,7 @@ def write_bed_file(output_file, regions_dict):
 
 
 
+<<<<<<< Updated upstream
 list_file = "temp/celfie_original/top_500_markers_merged.bed"
 tissues = 1
 
@@ -109,3 +110,16 @@ for file_path in file_paths:
     get_methylation_counts(tissue_cpg_file, regions)  # get methylation read counts of Cpgs within region
     write_bed_file(output_file_name, regions)
 
+=======
+list_file = "top_500_markers_merged.bed"
+directory_files = "20240417_output/bed"
+tissues = 1
+
+for file in os.listdir(directory_files):
+    tissue_cpg_file = os.path.join(directory_files,file)
+    output_file_name = os.path.join(directory_files,os.path.splitext(file)[0]+"_summed.bed")
+    regions = get_region_dict(list_file, 1)
+    get_methylation_counts(tissue_cpg_file, regions)  # get methylation read counts of Cpgs within region
+    write_bed_file(output_file_name, regions)
+   
+>>>>>>> Stashed changes
