@@ -93,16 +93,13 @@ def write_bed_file(output_file, regions_dict):
 
 
 
-
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-list_file = "temp/celfie_original/top_500_markers_merged.bed"
+list_file = "temp/celfie_original_atlas/top_500_markers_merged.bed"
 =======
 list_file = "test_celfie/markers_500_windowed.txt"
-tissue_cpg_file = "test_celfie/ENCFF318IKY_verwerked_filtered.bed"
-output_file_name = "test_celfie/ENCFF318IKY_windowed.bed"
->>>>>>> 29f44f7dc31ee232436b9a45b9bf945725c0d719
-tissues = 1
+tissue_cpg_file = "temp/summed_tissues.txt"
+output_file_name = "temp/summed_tissues_markers.bed"
+
+tissues = 39
 
 folder = ("C:/Users/cwillemart/Downloads/bed/bed/")
 output_folder = os.path.join(folder,"summed_over_marker/")
@@ -125,7 +122,7 @@ tissues = 1
 for file in os.listdir(directory_files):
     tissue_cpg_file = os.path.join(directory_files,file)
     output_file_name = os.path.join(directory_files,os.path.splitext(file)[0]+"_summed.bed")
-    regions = get_region_dict(list_file, 1)
+    regions = get_region_dict(list_file, tissues)
     get_methylation_counts(tissue_cpg_file, regions)  # get methylation read counts of Cpgs within region
     write_bed_file(output_file_name, regions)
    
